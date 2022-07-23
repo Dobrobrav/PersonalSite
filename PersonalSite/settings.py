@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-*$+*v85$65kkuni#4(^=n-t0)v6!wq_#rn9q6=_*m%1do4o6l^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '::1',
+]
 
 
 # Application definition
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main_page.apps.MainPageConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +81,11 @@ WSGI_APPLICATION = 'PersonalSite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'personal_site',
+        'USER': 'root',
+        'PASSWORD': '1771',
+        'HOST': 'localhost',
     }
 }
 
@@ -106,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
