@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main_page.apps.MainPageConfig',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+
 ]
 
 ROOT_URLCONF = 'PersonalSite.urls'
@@ -80,17 +83,17 @@ WSGI_APPLICATION = 'PersonalSite.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'personal_site',
-        # 'USER': 'root',
-        # 'PASSWORD': '1771',
-        # 'HOST': 'localhost',
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'f89082zi_persona',
-        'USER': 'f89082zi_persona',
-        'PASSWORD': 'gqIuFxM2',
-        'HOST': 'f89082zi.beget.tech',
-        'Port': '3306',
+        'NAME': 'personal_site',
+        'USER': 'root',
+        'PASSWORD': '1771',
+        'HOST': 'localhost',
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'f89082zi_persona',
+        # 'USER': 'f89082zi_persona',
+        # 'PASSWORD': 'gqIuFxM2',
+        # 'HOST': 'f89082zi.beget.tech',
+        # 'Port': '3306',
     }
 }
 
@@ -132,3 +135,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
