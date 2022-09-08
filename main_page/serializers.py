@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from main_page.models import Profile
+
 
 class MainInfoSerializer(serializers.Serializer):
     first_name = serializers.CharField(max_length=30)
@@ -25,5 +27,7 @@ class ContactDetailsSerializer(serializers.Serializer):
     link_to_vk = serializers.CharField(max_length=100, source='contact_details.link_to_vk')
 
 
-class InterestsSerializer(serializers.Serializer):
-    pass
+class InterestsSerializer:
+    def __init__(self, profile: Profile):
+        interests = [interest.name for interest in profile.interests.all()]
+        self.data = {'interests': interests}
