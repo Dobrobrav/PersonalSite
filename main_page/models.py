@@ -63,9 +63,9 @@ class Interest(models.Model):
 
 
 class Certificates(models.Model):
-    name = models.CharField(max_length=150)
+    # name = models.CharField(max_length=150)
     link_to_picture = models.URLField(blank=True, null=True)
     profiles = models.ManyToManyField(Profile, related_name='certificates')
 
     def __str__(self):
-        return self.name
+        return f"certificate: {self.pk}"

@@ -29,11 +29,9 @@ class ContactDetailsSerializer(serializers.Serializer):
 
 class InterestsSerializer:
     def __init__(self, profile: Profile):
-        interest_names_with_pictures = [
-            [interest.name, interest.link_to_picture]
-            for interest in profile.interests.all()
-        ]
-        self.data = {'interests': interest_names_with_pictures}
+        interest_pictures = [interest.link_to_picture
+                             for interest in profile.interests.all()]
+        self.data = {'interests': interest_pictures}
 
 
 class CertificatesSerializer:
