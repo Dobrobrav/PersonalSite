@@ -33,6 +33,10 @@ class Address(models.Model):
 
 
 class ContactDetails(models.Model):
+    email = models.EmailField(
+        blank=True, null=True,
+        verbose_name='Почта',
+    )
     telephone_extension = models.CharField(
         max_length=10, blank=True, null=True,
         verbose_name='Внутренний телефон',
@@ -56,6 +60,10 @@ class ContactDetails(models.Model):
     link_to_vk = models.URLField(
         blank=True, null=True,
         verbose_name='Ссылка на ВК-аккаунт',
+    )
+    link_to_youtube = models.URLField(
+        blank=True, null=True,
+        verbose_name='Ссылка на ютуб-канал',
     )
 
     def __str__(self):
@@ -154,7 +162,7 @@ class Interest(models.Model):
         ordering = ['id']
 
 
-class Certificates(models.Model):
+class Certificate(models.Model):
     # name = models.CharField(max_length=150)
     link_to_picture = models.URLField(
         blank=True, null=True,

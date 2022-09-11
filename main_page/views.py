@@ -1,47 +1,29 @@
 from rest_framework import generics
 
-from utils import query_debugger
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from utils import DebugQueryMixin
 from .serializers import *
 from .models import *
 
 
-# Create your views here.
-class MainInfoAPIView(APIView):
-    @query_debugger
-    def get(self, request):
-        profile_id = request.data['profile_id']
+class MainInfoAPIView(DebugQueryMixin, generics.RetrieveAPIView):
+    serializer_class = MainInfoSerializer
+
+    def get_object(self):
+        profile_id = self.request.data['profile_id']
         profile = Profile.objects.select_related('department') \
             .get(pk=profile_id)
-
-        serialized = MainInfoSerializer(profile)
-        return Response(serialized.data)
+        return profile
 
 
-# class MainInfoAPIView(generics.RetrieveAPIView):
+class ContactDetailsAPIView(DebugQueryMixin, generics.RetrieveAPIView):
+    serializer_class = ContactDetailsSerializer
 
-
-
-class ContactDetailsAPIView(APIView):
-    @query_debugger
-    def get(self, request):
-        profile_id = request.data['profile_id']
+    def get_object(self):
+        profile_id = self.request.data['profile_id']
         profile = Profile.objects \
             .select_related('contact_details', 'office__address') \
             .get(pk=profile_id)
-
-        serialized = ContactDetailsSerializer(profile)
-        return Response(serialized.data)
-
-
-# class InterestsAPIView(APIView):
-#     @query_debugger
-#     def get(self, request):
-#         profile_id = request.data['profile_id']
-#         profile = Profile.objects.get(pk=profile_id)
-#         serialized = InterestsSerializer(profile)
-#         return Response(serialized.data)
+        return profile
 
 
 class InterestsAPIView(generics.ListAPIView):
@@ -53,17 +35,6 @@ class InterestsAPIView(generics.ListAPIView):
         return profile.interests.all()
 
 
-# class CertificatesAPIView(APIView):
-#     @query_debugger
-#     def get(self, request):
-#         profile_id = request.data['profile_id']
-#         profile = Profile.objects.get(pk=profile_id)
-#         queryset = profile.certificates.all()
-#         return Response({
-#             'certificates': CertificatesSerializer(queryset, many=True).data
-#         })
-
-
 class CertificatesAPIView(generics.ListAPIView):
     serializer_class = CertificatesSerializer
 
@@ -72,3 +43,12 @@ class CertificatesAPIView(generics.ListAPIView):
         profile = Profile.objects.get(pk=profile_id)
         return profile.certificates.all()
 
+
+class FooterInfoAPIView(generics.RetrieveAPIView):
+    serializer_class = FooterSerializer
+
+    def get_object(self):
+        profile_id = self.request.data['profile_id']
+        profile = Profile.objects.select_related('contact_details') \
+            .get(pk=profile_id)
+        return profile.contact_details

@@ -23,3 +23,12 @@ def query_debugger(func):
         return result
 
     return inner_func
+
+
+class DebugQueryMixin:
+    """ Debugs only .get method """
+    def __init__(self, *args, **kwargs):
+        for method_name in ('get',):
+            method = query_debugger(getattr(self, method_name))
+            setattr(self, method_name, method)
+        super().__init__(*args, **kwargs)
