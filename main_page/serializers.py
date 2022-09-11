@@ -11,33 +11,66 @@ class MainInfoSerializer(serializers.Serializer):
 
 
 class ContactDetailsSerializer(serializers.Serializer):
-    country = serializers.CharField(max_length=60, source='office.address.country')
-    region = serializers.CharField(max_length=60, source='office.address.region')
-    locality = serializers.CharField(max_length=70, source='office.address.locality')
-    street_name = serializers.CharField(max_length=130, source='office.address.street_name')
-    street_number = serializers.IntegerField(source='office.address.street_number')
-    apartment_number = serializers.IntegerField(source='office.address.apartment_number')
-    postcode = serializers.IntegerField(source='office.postcode')
-    telephone_extension = serializers.IntegerField(source='contact_details.telephone_extension')
-    work_phone_number = serializers.CharField(max_length=17, source='contact_details.work_phone_number')
-    additional_phone_number = serializers.CharField(max_length=17, source='contact_details.additional_phone_number')
-    link_to_photo = serializers.CharField(max_length=100)
-    telegram_name = serializers.CharField(max_length=35, source='contact_details.telegram_name')
-    link_to_telegram = serializers.CharField(max_length=100, source='contact_details.link_to_telegram')
-    link_to_vk = serializers.CharField(max_length=100, source='contact_details.link_to_vk')
+    country = serializers.CharField(
+        max_length=60, source='office.address.country'
+    )
+    region = serializers.CharField(
+        max_length=60, source='office.address.region'
+    )
+    locality = serializers.CharField(
+        max_length=70, source='office.address.locality'
+    )
+    street_name = serializers.CharField(
+        max_length=130, source='office.address.street_name'
+    )
+    street_number = serializers.IntegerField(
+        source='office.address.street_number'
+    )
+    apartment_number = serializers.IntegerField(
+        source='office.address.apartment_number'
+    )
+    postcode = serializers.IntegerField(
+        source='office.postcode'
+    )
+    telephone_extension = serializers.IntegerField(
+        source='contact_details.telephone_extension'
+    )
+    work_phone_number = serializers.CharField(
+        max_length=17, source='contact_details.work_phone_number'
+    )
+    additional_phone_number = serializers.CharField(
+        max_length=17, source='contact_details.additional_phone_number'
+    )
+    link_to_photo = serializers.CharField(
+        max_length=100
+    )
+    telegram_name = serializers.CharField(
+        max_length=35, source='contact_details.telegram_name'
+    )
+    link_to_telegram = serializers.CharField(
+        max_length=100, source='contact_details.link_to_telegram'
+    )
+    link_to_vk = serializers.CharField(
+        max_length=100, source='contact_details.link_to_vk'
+    )
+#
+#
+# class InterestsSerializer:
+#     def __init__(self, profile: Profile):
+#         interest_pictures = [interest.link_to_picture
+#                              for interest in profile.interests.all()]
+#         self.data = {'interests': interest_pictures}
+
+class InterestsSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=50)
+    link_to_picture = serializers.URLField()
 
 
-class InterestsSerializer:
-    def __init__(self, profile: Profile):
-        interest_pictures = [interest.link_to_picture
-                             for interest in profile.interests.all()]
-        self.data = {'interests': interest_pictures}
+# class CertificatesSerializer:
+#     def __init__(self, profile: Profile):
+#         certificate_pictures = [certificate.link_to_picture
+#                                 for certificate in profile.certificates.all()]
+#         self.data = {'certificates': certificate_pictures}
 
-
-class CertificatesSerializer:
-    def __init__(self, profile: Profile):
-        certificate_pictures = [
-            [certificate.name, certificate.link_to_picture]
-            for certificate in profile.certificates.all()
-        ]
-        self.data = {'certificates': certificate_pictures}
+class CertificatesSerializer(serializers.Serializer):
+    link_to_picture = serializers.URLField()
