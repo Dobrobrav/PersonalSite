@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from utils import DebugQueryMixin
 from .serializers import *
@@ -9,7 +10,8 @@ class MainInfoAPIView(DebugQueryMixin, generics.RetrieveAPIView):
     serializer_class = MainInfoSerializer
 
     def get_object(self):
-        profile_id = self.request.data['profile_id']
+        # profile_id = self.request.data['profile_id']
+        profile_id = 1
         profile = Profile.objects.select_related('department') \
             .get(pk=profile_id)
         return profile
@@ -46,6 +48,7 @@ class CertificatesAPIView(generics.ListAPIView):
 
 class FooterInfoAPIView(generics.RetrieveAPIView):
     serializer_class = FooterSerializer
+    # permission_classes = (IsAuthenticated,)
 
     def get_object(self):
         profile_id = self.request.data['profile_id']
